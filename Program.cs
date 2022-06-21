@@ -41,7 +41,9 @@ Adxl345 InitializeSensor()
 
 Message CreateTelemetryFromReading(Vector3 acceleration)
 {
-    var payload = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(acceleration));
+    var json = JsonSerializer.Serialize(new { x = acceleration.X, y = acceleration.Y, z = acceleration.Z });
+    Console.WriteLine($"JSON-Payload: {json}");
+    var payload = Encoding.UTF8.GetBytes(json);
     return new Message(payload);
 }
 
