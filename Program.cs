@@ -12,10 +12,9 @@ var sensor = InitializeSensor();
 Console.WriteLine("Starting telemetry transmission.");
 while (true)
 {
-    var message = CreateTelemetryFromReading(sensor.Acceleration);
-    await deviceClient.SendEventAsync(message);
-
+    await ReadSensorAndSendTelemetry(deviceClient, sensor);
     Console.WriteLine("Telemetry sent. Delaying...");
+
     await Task.Delay(TimeSpan.FromSeconds(10));
 }
 
@@ -44,4 +43,13 @@ Message CreateTelemetryFromReading(Vector3 acceleration)
 {
     var payload = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(acceleration));
     return new Message(payload);
+}
+
+async Task ReadSensorAndSendTelemetry(DeviceClient deviceClient, Adxl345 sensor)
+{
+    var acceleration = sensor.Acceleration;
+    Console.WriteLine($"Read sensor: {acceleration}");
+
+    var message = CreateTelemetryFromReading(acceleration);
+    await deviceClient.SendEventAsync(message);
 }
