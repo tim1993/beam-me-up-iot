@@ -9,12 +9,13 @@ Console.WriteLine("Vibration monitoring starting up!");
 var deviceClient = await CreateDeviceClient();
 var sensor = InitializeSensor();
 
-
+Console.WriteLine("Starting telemetry transmission.");
 while (true)
 {
     var message = CreateTelemetryFromReading(sensor.Acceleration);
     await deviceClient.SendEventAsync(message);
 
+    Console.WriteLine("Telemetry sent. Delaying...");
     await Task.Delay(TimeSpan.FromSeconds(10));
 }
 
