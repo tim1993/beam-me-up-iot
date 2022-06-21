@@ -8,4 +8,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Iot.Device.Bindings" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Azure.Devices.Client" Version="1.41.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.Azure.Devices.Client" />
+  </ItemGroup>
 </Project>
